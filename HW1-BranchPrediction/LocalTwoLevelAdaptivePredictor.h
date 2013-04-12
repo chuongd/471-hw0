@@ -5,8 +5,8 @@
 
 #define BHR_SIZE 16
 #define BHT_SIZE 1024 
-#define BHT_ELE_SIZE (1024/16) // table elements
-#define GHT_ELE_SIZE (3*1024/2) // two bits staturating
+#define BHT_ELE_SIZE 64 //(1024/16) // table elements
+#define GHT_ELE_SIZE 1000 //(3*1024/2) // two bits staturating
 // constfor 2 bits saturating
 #define NOT_TAKEN 0
 #define WEAK_NOT_TAKEN 1

@@ -1,6 +1,9 @@
 #include "LocalTwoLevelAdaptivePredictor.h"
 
-LocalTwoLevelAdaptivePredictor::LocalTwoLevelAdaptivePredictor() : Predictor(), localBHT(BHT_ELE_SIZE), globalPHT(GHT_ELE_SIZE){
+LocalTwoLevelAdaptivePredictor::LocalTwoLevelAdaptivePredictor() : 
+                    Predictor(), localBHT(BHT_ELE_SIZE), globalPHT(GHT_ELE_SIZE, std::vector<uint64_t>(BHT_ELE_SIZE)){
+
+    printf("Predictor Created here \n");
 
 
 }
@@ -9,14 +12,21 @@ BranchOutcome LocalTwoLevelAdaptivePredictor::predictBranch(ADDRINT addr){
  	
  	// index the local history table by the last 6 bits of the 
     uint64_t index_lht = addr & MASK_6;
-
+    printf("predict index column: %d\n", index_lht);
     if (index_lht < BHT_ELE_SIZE){
     	// index the pht
     	uint64_t index_bht_row = localBHT[index_lht] & MASK_16;
     	// row
-    	std::vector<int> row_vect = globalPHT[index_bht_row];
+        printf("predict index row: %d\n", index_bht_row);
+    	//std::vector<int> row_vect = globalPHT[index_bht_row];
     	// col
-    	int decision = row_vect[index_lht];
+        int decision = NotTaken;
+    	if (index_bht_row < GHT_ELE_SIZE){
+            printf("item [%d][%d] = %d\n", index_bht_row, index_lht, 0);
+            decision = globalPHT[index_bht_row][index_lht];
+            printf("Get result from PHT %d\n", decision);
+        }
+
     	// predict result
     	printf("item found in table\n");
     	switch(decision){
