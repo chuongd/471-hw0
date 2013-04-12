@@ -5,11 +5,12 @@ TwoLevelAdaptivePredictor::TwoLevelAdaptivePredictor()
     : Predictor(), patternHistoryTable(1 << (HISTORY_LENGTH + ADDRESS_LENGTH)) {
   historyMask = (1 << HISTORY_LENGTH) - 1;
   addressMask = (1 << ADDRESS_LENGTH) - 1;
+  printf("table size: %d\n", patternHistoryTable.size());
 }
 
 BranchOutcome TwoLevelAdaptivePredictor::predictBranch(ADDRINT addr) {
 
-  uint32_t index = ((addr & addressMask) << HISTORY_LENGTH) + (globalBranchHistory & historyMask);
+  uint64_t index = ((addr & addressMask) << HISTORY_LENGTH) + (globalBranchHistory & historyMask);
   assert(index < patternHistoryTable.size());
   int state = patternHistoryTable[index];
   switch (state) {
@@ -32,16 +33,18 @@ void TwoLevelAdaptivePredictor::updatePredictor(ADDRINT addr, BranchOutcome o){
   // update globalBranchHistory
   globalBranchHistory <<= 1;
   if (o == Taken)
-    globalBranchHistory += 1;
+    globalBranchHistory |= 1;
 
   // update state
-  uint32_t index = ((addr & addressMask) << HISTORY_LENGTH) + (globalBranchHistory & historyMask);
+  uint64_t index = ((addr & addressMask) << HISTORY_LENGTH) + (globalBranchHistory & historyMask);
   assert(index < patternHistoryTable.size());
   int state = patternHistoryTable[index];
   if (o == Taken && state != TAKEN)
     patternHistoryTable[index]++;
   else if (o == NotTaken && state != NOT_TAKEN)
     patternHistoryTable[index]--;
+  // if (state > patternHistoryTable[index])
+  //   printf("state: %d -> %d\n", state, patternHistoryTable[index]);
 
 }
 
