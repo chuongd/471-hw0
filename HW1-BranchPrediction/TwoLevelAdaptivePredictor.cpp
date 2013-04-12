@@ -2,13 +2,14 @@
 #include <cassert>
 
 TwoLevelAdaptivePredictor::TwoLevelAdaptivePredictor()
-    : Predictor(), patternHistoryTable(1 << HISTORY_LENGTH) {
-  mask = (1 << HISTORY_LENGTH) - 1;
+    : Predictor(), patternHistoryTable(1 << (HISTORY_LENGTH + ADDRESS_LENGTH)) {
+  historyMask = (1 << HISTORY_LENGTH) - 1;
+  addressMask = (1 << ADDRESS_LENGTH) - 1;
 }
 
 BranchOutcome TwoLevelAdaptivePredictor::predictBranch(ADDRINT addr) {
 
-  uint16_t index = addr & mask;
+  uint32_t index = ((addr & addressMask) << HISTORY_LENGTH) + (globalBranchHistory & historyMask);
   assert(index < patternHistoryTable.size());
   int state = patternHistoryTable[index];
   switch (state) {
@@ -29,12 +30,12 @@ BranchOutcome TwoLevelAdaptivePredictor::predictBranch(ADDRINT addr) {
 void TwoLevelAdaptivePredictor::updatePredictor(ADDRINT addr, BranchOutcome o){
 
   // update globalBranchHistory
-  globalBranchHistory << 1;
+  globalBranchHistory <<= 1;
   if (o == Taken)
-    globalBranchHistory | 0x01;
+    globalBranchHistory += 1;
 
   // update state
-  uint16_t index = globalBranchHistory & mask;
+  uint32_t index = ((addr & addressMask) << HISTORY_LENGTH) + (globalBranchHistory & historyMask);
   assert(index < patternHistoryTable.size());
   int state = patternHistoryTable[index];
   if (o == Taken && state != TAKEN)

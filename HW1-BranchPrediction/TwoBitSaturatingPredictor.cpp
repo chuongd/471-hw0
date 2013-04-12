@@ -36,7 +36,6 @@ void TwoBitSaturatingPredictor::updatePredictor(ADDRINT addr, BranchOutcome o){
 	if (index < SIZE){
 		int state = branchPredictionBuffer[index];
 		if (o == Taken){
-			printf("update Taken\n");
 			if (state != TAKEN)
 				branchPredictionBuffer[index] += 1;
 		}else{ // NotTaken case
