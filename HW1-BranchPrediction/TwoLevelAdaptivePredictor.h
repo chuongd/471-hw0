@@ -1,14 +1,8 @@
 #include "Predictor.h"
 #include <vector>
 
-// 2 bit saturating counter for each entry
-// 4kB budget = 32768 bits
-// 16384 entries
-// each address will have 2^4 entries for history
-// that's 1024 address entries
-// that leaves 10 bits for addressing
-#define HISTORY_LENGTH 0
-#define ADDRESS_LENGTH 14
+#define HISTORY_LENGTH 10
+#define ADDRESS_LENGTH 4
 
 #define NOT_TAKEN 0
 #define WEAK_NOT_TAKEN 1

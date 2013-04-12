@@ -10,6 +10,7 @@ TwoLevelAdaptivePredictor::TwoLevelAdaptivePredictor()
 
 BranchOutcome TwoLevelAdaptivePredictor::predictBranch(ADDRINT addr) {
 
+  // index = addr + globalBranchHistory (concatenation)
   uint64_t index = ((addr & addressMask) << HISTORY_LENGTH) + (globalBranchHistory & historyMask);
   assert(index < patternHistoryTable.size());
   int state = patternHistoryTable[index];
@@ -30,12 +31,8 @@ BranchOutcome TwoLevelAdaptivePredictor::predictBranch(ADDRINT addr) {
 
 void TwoLevelAdaptivePredictor::updatePredictor(ADDRINT addr, BranchOutcome o){
 
-  // update globalBranchHistory
-  globalBranchHistory <<= 1;
-  if (o == Taken)
-    globalBranchHistory |= 1;
-
   // update state
+  // index = addr + globalBranchHistory (concatenation)
   uint64_t index = ((addr & addressMask) << HISTORY_LENGTH) + (globalBranchHistory & historyMask);
   assert(index < patternHistoryTable.size());
   int state = patternHistoryTable[index];
@@ -43,8 +40,11 @@ void TwoLevelAdaptivePredictor::updatePredictor(ADDRINT addr, BranchOutcome o){
     patternHistoryTable[index]++;
   else if (o == NotTaken && state != NOT_TAKEN)
     patternHistoryTable[index]--;
-  // if (state > patternHistoryTable[index])
-  //   printf("state: %d -> %d\n", state, patternHistoryTable[index]);
+
+  // update globalBranchHistory
+  globalBranchHistory <<= 1;
+  if (o == Taken)
+    globalBranchHistory |= 1;
 
 }
 
