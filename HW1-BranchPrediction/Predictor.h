@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <inttypes.h>
+//typedef uint64_t ADDRINT;
 class Predictor{
 
 public:

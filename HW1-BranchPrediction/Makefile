@@ -7,7 +7,7 @@ OBJS = bp.o
 DBG= -g -DVERBOSE
 OPT= -O3
 
-CXXFLAGS= -Wall -Wno-unknown-pragmas -Wno-deprecated $(DBG) $(OPT) -MMD
+CXXFLAGS= -Wall -std=gnu++0x -Wno-unknown-pragmas -Wno-deprecated $(DBG) $(OPT) -MMD
 
 PIN_KIT=$(PIN_HOME)
 KIT=1
