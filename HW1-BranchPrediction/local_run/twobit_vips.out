@@ -1,2 +1,2 @@
 Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/LocalTwoLevelAdaptivePredictor.so
-7788952 out of 13112216 branches were taken (0.594023%). Correctly predicted 12922969 (0.985567%).
+7787984 out of 13111014 branches were taken (0.594003%). Correctly predicted 12992620 (0.990970%).

@@ -1,0 +1,46 @@
+LOCAL TWO LEVEL PREDICTOR
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/LocalTwoLevelAdaptivePredictor.so
+34718 out of 70275 branches were taken (0.494031%). Correctly predicted 60077 (0.854884%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/LocalTwoLevelAdaptivePredictor.so
+20354882 out of 48124235 branches were taken (0.422965%). Correctly predicted 48006161 (0.997546%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/LocalTwoLevelAdaptivePredictor.so
+132424 out of 252406 branches were taken (0.524647%). Correctly predicted 229553 (0.909459%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/LocalTwoLevelAdaptivePredictor.so
+3862058 out of 8327531 branches were taken (0.463770%). Correctly predicted 7706031 (0.925368%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/LocalTwoLevelAdaptivePredictor.so
+3268181 out of 5246398 branches were taken (0.622938%). Correctly predicted 4887821 (0.931653%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/LocalTwoLevelAdaptivePredictor.so
+132677 out of 253596 branches were taken (0.523183%). Correctly predicted 231974 (0.914738%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/LocalTwoLevelAdaptivePredictor.so
+7787989 out of 13111052 branches were taken (0.594002%). Correctly predicted 12921739 (0.985561%).
+
+
+TWO_BIT SATURATING
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/TwoBitSaturatingPredictor.so
+34717 out of 70256 branches were taken (0.494150%). Correctly predicted 62754 (0.893219%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/TwoBitSaturatingPredictor.so
+20354874 out of 48124227 branches were taken (0.422965%). Correctly predicted 47882550 (0.994978%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/TwoBitSaturatingPredictor.so
+132424 out of 252405 branches were taken (0.524649%). Correctly predicted 237828 (0.942248%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/TwoBitSaturatingPredictor.so
+3862054 out of 8327518 branches were taken (0.463770%). Correctly predicted 7541312 (0.905589%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/TwoBitSaturatingPredictor.so
+3268181 out of 5246397 branches were taken (0.622938%). Correctly predicted 4596952 (0.876211%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/TwoBitSaturatingPredictor.so
+132677 out of 253596 branches were taken (0.523183%). Correctly predicted 238461 (0.940318%).
+
+Branch Predictor: /homes/iws/chuongd/471/HW1-BranchPrediction/TwoBitSaturatingPredictor.so
+7788002 out of 13110999 branches were taken (0.594005%). Correctly predicted 12909875 (0.984660%).

@@ -15,11 +15,11 @@ BranchOutcome LocalTwoLevelAdaptivePredictor::predictBranch(ADDRINT addr){
     //printf("=======Start Predict Branch ========\n");
     //printf("size: %d   %d\n",GHT_ELE_SIZE, BHT_ELE_SIZE );
  	// index the local history table by the last 6 bits of the 
- int index_lht = addr & MASK_6;
+ int index_lht = addr & MASK_11;
     //printf("predict index column: %d\n", index_lht);
   if (index_lht < BHT_ELE_SIZE){
     	// index the pht
-  int index_bht_row = localBHT[index_lht] & MASK_10 ;
+  int index_bht_row = localBHT[index_lht] & MASK_11 ;
         // row
       //  printf("predict index row: %d\n", index_bht_row);
     	// col
@@ -53,13 +53,13 @@ BranchOutcome LocalTwoLevelAdaptivePredictor::predictBranch(ADDRINT addr){
     //printf ("************Start UPdate predictor****************\n");
     // result does not match
    char buff[64+1];
-   int64_t index_lht = addr & MASK_6;
+   int64_t index_lht = addr & MASK_11;
    //if (index_lht >= BHT_ELE_SIZE)
       //printf("index: %d\n",index_lht);
     // get the pattern
    if (index_lht < BHT_ELE_SIZE){
      //int row = localBHT[index_lht] & MASK_16;
-     int row = localBHT[index_lht] & MASK_10;
+     int row = localBHT[index_lht] & MASK_11;
      //int col = index_lht;
       // update locally PHT
      //printf("row: %d\n",row);
@@ -71,14 +71,14 @@ BranchOutcome LocalTwoLevelAdaptivePredictor::predictBranch(ADDRINT addr){
            //binrep(globalPHT[row][col],buff,65);
           //printf("updated globalPHT[%d][%d]=%s\n",row,col,binrep(globalPHT[row][col],buff,65));
 
-        }
+        } 
          
         // UPDATE LOCAL HISTORY all time    
-        int val = localBHT[index_lht] & MASK_10;
+        int val = localBHT[index_lht] & MASK_11;
         val <<= 1;
-        val &= MASK_10;
+        val &= MASK_11;
         val |= 1; 
-        val &= MASK_10;
+        val &= MASK_11;
         //binrep(val,buff,65);
         //printf("updated Taken localBHT[%d]=%s\n",index_lht, binrep(globalPHT[row][col],buff,65));
         //printf("value %d\n",val);
@@ -91,57 +91,17 @@ BranchOutcome LocalTwoLevelAdaptivePredictor::predictBranch(ADDRINT addr){
             globalPHT[row] = (predicted != NOT_TAKEN) ? --predicted : predicted;
         }
         // UPDATE LOCAL HISTORY all the times
-        int val = localBHT[index_lht] & MASK_10;
+        int val = localBHT[index_lht] & MASK_11;
         val <<= 1;
-        val &= MASK_10;
+        val &= (~0x1); // make the last bit become 0
+        val &= MASK_11;
         //binrep(val,buff,65);
-        //printf("updated Not Taken localBHT[%d]=%s\n",index_lht, binrep(globalPHT[row][col],buff,65));
-        //printf("value %d\n",val);
         localBHT[index_lht] = val;
 
 
-      }
-      
-
-      // update global with bitshift
-
-      
+      }    
     }
-   //if (index_lht < BHT_ELE_SIZE)
-     //printf("value: %d\n", localBHT[index_lht]);
-  //  if (index_lht < BHT_ELE_SIZE && index_lht >= 0){
-  //   	// index the pht
-  //       //localBHT[0] <<= 1;
-  //       //localBHT[0] |= 1;
-  //  int index_bht_row = localBHT[index_lht] & MASK_16;
-  //        //localBHT[index_lht] <<= 1;
-  //        //localBHT[index_lht] |= 1;
-  // //       //int val3 = 1;
-  // //       ///val3 |= 1;
-  //    	///localBHT[index_lht] |= val3;
-  // //       //localBHT[index_lht] |= 1;
-  //   int decision = globalPHT[index_bht_row][index_lht];
-  //   //printf("decision: %d\n", decision);
-  //   if (o == Taken){
-		// // 	//printf("update Taken\n");
-  //     if (decision != TAKEN && (index_bht_row < GHT_ELE_SIZE)) {
-  //     //   printf("row: %d\n", index_lht);
-  //      }
-		//  		//globalPHT[index_bht_row][index_lht] += 1;         
-
-  //     localBHT[index_lht] <<= 1;
-  //     localBHT[index_lht] |= 1;    
-
-  //   }else{ // NotTaken case
-		//  	//if (decision != NOT_TAKEN)
-		//  		// globalPHT[index_bht_row][index_lht] -= 1;
-
-  //      //localBHT[index_lht] <<= 1;
-  //   }
-
-  //     }else {
-  //   	printf("branch address out of table\n"); // should not happen
-  //   }	
+  
   }
 
   void LocalTwoLevelAdaptivePredictor::dumpStats(FILE * out){

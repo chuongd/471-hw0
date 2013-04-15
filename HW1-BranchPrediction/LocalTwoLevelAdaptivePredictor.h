@@ -5,8 +5,8 @@
 
 #define BHR_SIZE 16
 #define BHT_SIZE 1024 
-#define BHT_ELE_SIZE 64 //(1024/16) // table elements
-#define GHT_ELE_SIZE 1500 //(3*1024/2) // two bits staturating
+#define BHT_ELE_SIZE 2048 //(1024/16) // table elements
+#define GHT_ELE_SIZE 2048 //(3*1024/2) // two bits staturating
 // constfor 2 bits saturating
 #define NOT_TAKEN 0
 #define WEAK_NOT_TAKEN 1
@@ -16,6 +16,7 @@
 const uint64_t MASK_16 = 0xffff; 
 const uint64_t MASK_8 = 0xff;
 const uint64_t MASK_10 = 0x3ff;
+const uint64_t MASK_11 = 0x7ff;
 const uint64_t MASK_6 = 0x3f; 
 
 class LocalTwoLevelAdaptivePredictor: public Predictor{
