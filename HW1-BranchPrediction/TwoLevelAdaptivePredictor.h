@@ -1,8 +1,8 @@
 #include "Predictor.h"
 #include <vector>
 
-#define HISTORY_LENGTH 10
-#define ADDRESS_LENGTH 4
+#define HISTORY_LENGTH 14
+#define ADDRESS_LENGTH 0
 
 #define NOT_TAKEN 0
 #define WEAK_NOT_TAKEN 1

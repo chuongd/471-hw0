@@ -1,7 +1,7 @@
 #include "Predictor.h"
 #include <vector>
 
-#define SIZE 2048
+#define SIZE 18
 
 
 #define NOT_TAKEN 0
@@ -9,9 +9,10 @@
 #define WEAK_TAKEN 2
 #define TAKEN 3
 
-const uint64_t MASK = 0x7ff;
-
 class TwoBitSaturatingPredictor : public Predictor{
+private:
+  uint64_t mask;
+
 public:
   //PredictionState state;
   std::vector<int> branchPredictionBuffer;

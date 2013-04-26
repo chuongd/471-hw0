@@ -1,14 +1,14 @@
 #include "TwoBitSaturatingPredictor.h"
 #include <inttypes.h>
-TwoBitSaturatingPredictor::TwoBitSaturatingPredictor() : Predictor(), branchPredictionBuffer(SIZE) {
-
+TwoBitSaturatingPredictor::TwoBitSaturatingPredictor() : Predictor(), branchPredictionBuffer(1 << SIZE) {
+	mask = (1 << SIZE) - 1;
 }
 
 BranchOutcome TwoBitSaturatingPredictor::predictBranch(ADDRINT addr){
 
-	uint64_t index = addr & MASK;
+	uint64_t index = addr & mask;
 
-	if (index < SIZE){
+	if (index < (1 << SIZE)){
 		int state = branchPredictionBuffer[index];
 		switch(state){
 			case NOT_TAKEN:
@@ -32,8 +32,8 @@ BranchOutcome TwoBitSaturatingPredictor::predictBranch(ADDRINT addr){
 
 void TwoBitSaturatingPredictor::updatePredictor(ADDRINT addr, BranchOutcome o){
 
-	uint64_t index = addr & MASK;
-	if (index < SIZE){
+	uint64_t index = addr & mask;
+	if (index < (1 << SIZE)){
 		int state = branchPredictionBuffer[index];
 		if (o == Taken){
 			if (state != TAKEN)
